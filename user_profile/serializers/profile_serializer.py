@@ -5,15 +5,6 @@ from user_profile.models import Profile
 
 user_model = get_user_model()
 
-class UserSerializer(serializers.ModelSerializer):
-    
-    name = serializers.CharField(source='name')
-    phone = serializers.CharField(source='phone')
-   
-    class Meta:
-        model = user_model
-        read_only_fields = ('name', 'phone')
-        fields = ['name', 'phone', 'invate',]
  
 
 class ProfileSerializer(serializers.ModelSerializer):

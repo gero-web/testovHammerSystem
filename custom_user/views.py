@@ -31,7 +31,7 @@ def login_otp(request):
     user, _ = user_model.objects.get_or_create(phone=user_phone)
     user.onetimepass = otp
     user.save()
-    request.session['user_phone'] = user_phone    
+    request.session['user_phone'] = user_phone     
     return Response({'otp': otp}, status=status.HTTP_200_OK)
     
 @extend_schema(
@@ -47,12 +47,16 @@ def login_otp(request):
 )   
 @api_view(['POST'])
 def otp_validation(request):
-    
-    if 'user_phone' not in  request.session:
+    user_phone = ''
+    if 'user_phone'  in  request.session:
+         user_phone = request.session['user_phone']
+    else:
+         user_phone = request.data.get('user_phone', False)
+    if not user_phone:
         return Response({'msg': 'session expired '}, status=status.HTTP_403_FORBIDDEN) 
-    user_phone = request.session['user_phone']
+    
     otp = request.data.get('otp', False)
-    print(otp)
+    
     if not otp:
          return  Response({'msg': 'Please provide otp'}, status=status.HTTP_400_BAD_REQUEST)
     user_model = get_user_model()
@@ -60,8 +64,9 @@ def otp_validation(request):
     
     if int(user.onetimepass) == int(otp):
         refresh =  RefreshToken.for_user(user)
-        del request.session['user_phone']
-        request.session.modified = True
+        if 'user_phone' in request.session:
+            del request.session['user_phone']
+            request.session.modified = True
         return Response({
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
