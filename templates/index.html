@@ -20,11 +20,11 @@ ul {
     overflow: hidden;
     background-color: #333;
   }
-  
+
   li {
     float: left;
   }
-  
+
   li a {
     display: block;
     color: white;
@@ -32,7 +32,7 @@ ul {
     padding: 14px 16px;
     text-decoration: none;
   }
-  
+
   /* Change the link color to #111 (black) on hover */
   li a:hover {
     background-color: #111;
@@ -43,7 +43,7 @@ ul {
     border: none;
   }
   button:hover{
- 
+
     background-color: green;
     border: none;
   }
@@ -52,27 +52,27 @@ ul {
 <nav>
     <ul>
          <li> <button onclick="showContent()">Войти</button></li>
-         
+
       </ul>
 </nav>
- 
-<div class="myClass" hidden="true"> 
+
+<div class="myClass" hidden="true">
    <p>otp code будет в консоли</p>
    <label> Phone number</label>
    <input id="phoneNumber" name="phoneNumber" value="" type="text">
    <button onclick="getOtp()">Войти</button>
 </div>
- 
-<div class="myClass" hidden="true"> 
-     
+
+<div class="myClass" hidden="true">
+
     <label> OTP Code</label>
     <input id="otp" name="otp" value="" type="text">
     <button onclick="sendOtp()">Отправить</button>
  </div>
- 
-  
-<div class="myClass" hidden="true"> 
-   
+
+
+<div class="myClass" hidden="true">
+
     <div>
         <label>phone:</label>
         <p id="phone"></p>
@@ -86,13 +86,13 @@ ul {
         <input id="some_invate" type="text">
         <button onclick="profilePUT()" id="buttonPUTProfile"> ОК </button>
     </div>
-    
+
     <div id="users">
 
     </div>
  </div>
-  
- 
+
+
 
 <script>
 function getCookie(name) {
@@ -100,7 +100,7 @@ function getCookie(name) {
     return cookie ? cookie[2] : null;
 }
 
-async function api(url, headers) 
+async function api(url, headers)
 {
     const response = await fetch(url, headers);
     const data = await response.json();
@@ -120,26 +120,26 @@ function showContent() {
     temp1.hidden = true;
     temp2.hidden = true;
     temp.hidden = false;
-    
-   
+
+
 }
 
 
 async function getOtp(){
     phoneNumber = document.getElementById("phoneNumber");
-    
+
     headers={
         method: "POST",
         mode: "cors",
         credentials: "same-origin",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": getCookie("csrftoken"), 
-             
+            "X-CSRFToken": getCookie("csrftoken"),
+
         },
         body: JSON.stringify({'user_phone': phoneNumber.value})
     };
-    const data = await api('http://localhost:8000/auth/login/', headers);
+    const data = await api(`${window.location.origin}/auth/login/`, headers);
     console.log(data['otp']);
     phoneNumberVal = phoneNumber.value;
     temp.hidden = true;
@@ -153,13 +153,13 @@ async function sendOtp(){
         mode: "cors",
         credentials: "same-origin",
         headers: {
-          
+
             "X-CSRFToken": getCookie("csrftoken"),
             "Content-Type": "application/json",
         },
         body: JSON.stringify({'otp':  otp.value, 'user_phone': phoneNumberVal })
     };
-    data = await api('http://localhost:8000/auth/otp_validation/', headers);
+    data = await api(`${window.location.origin}/auth/otp_validation/`, headers);
     ac = data.access;
     temp1.hidden = true;
     temp2.hidden = false;
@@ -171,13 +171,13 @@ async function profileGET(){
         method: "GET",
         mode: "cors",
         headers: {
-            "X-CSRFToken": getCookie("csrftoken"), 
+            "X-CSRFToken": getCookie("csrftoken"),
             "Content-Type": "application/json",
             "Authorization":`Bearer  ${ac}`,
           },
-         
+
         };
-    const data = await api('http://127.0.0.1:8000/profile/', headers );
+    const data = await api(`${window.location.origin}/profile/`, headers );
     const phone = document.getElementById("phone");
     const invate = document.getElementById("invate");
     const some_invate = document.getElementById("some_invate");
@@ -187,7 +187,7 @@ async function profileGET(){
     some_invate.textContent = data['some_invate'];
     const users = data['users'];
     console.table(users)
-    
+
     for(let user of users){
         for(let prop in user){
             if( 'users' === prop || 'name' === prop)
@@ -197,10 +197,10 @@ async function profileGET(){
             p.textContent = `${prop}: ${user[prop]}`;
             div.appendChild(p)
             usersEl.appendChild(div);
-            
+
         }
     }
-    
+
 }
 
 function profilePUT(){
@@ -209,13 +209,13 @@ function profilePUT(){
         method: "PUT",
         mode: "cors",
         headers: {
-            "X-CSRFToken": getCookie("csrftoken"), 
+            "X-CSRFToken": getCookie("csrftoken"),
             "Content-Type": "application/json",
             "Authorization":`Bearer  ${ac}`,
           },
         body: JSON.stringify({'someone_invite': some_invate.value, })
     };
-    api('http://127.0.0.1:8000/profile/', headers );
+    api(`${window.location.origin}/profile/`, headers );
     const buttonPUTProfile = document.getElementById("buttonPUTProfile");
     buttonPUTProfile.hidden = true;
     profileGET();
