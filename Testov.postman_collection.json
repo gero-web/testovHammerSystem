@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "b101a065-1255-4619-af46-3be1fea7cf58",
+		"name": "Testov",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17712836"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8000/auth/login/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_phone\": \"89081213111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://sergeq.pythonanywhere.com/auth/login/",
+					"protocol": "http",
+					"host": [
+						"sergeq",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/auth/otp_validation/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Set-Cookie",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"otp\": \"7747\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://sergeq.pythonanywhere.com/auth/otp_validation/",
+					"protocol": "http",
+					"host": [
+						"sergeq",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"auth",
+						"otp_validation",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/profile/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkyNTE0NzU4LCJpYXQiOjE2OTI1MTQ0NTgsImp0aSI6ImVhMmUzZTU4M2ZmMjQ4ZTE5ZTdlYmRkMTdkY2UyZWNjIiwidXNlcl9pZCI6Mn0.4aNJlxkM6CuBWpNfQk4xEX8BKEquwx_Whds7T709nLM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://sergeq.pythonanywhere.com/profile/",
+					"protocol": "http",
+					"host": [
+						"sergeq",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/profile/",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkyNTA1OTYwLCJpYXQiOjE2OTI1MDU2NjAsImp0aSI6IjZhMGFiNmU4MTE3MjRiZDg5YjM3MWEyNjE3ZjU4NmI1IiwidXNlcl9pZCI6MX0.l1-qob8SIaeWY9JAqy2G5d5wPaoS-TDlEM7tAL7GJhc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"someone_invite\": \"789793\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://sergeq.pythonanywhere.com/profile/",
+					"protocol": "http",
+					"host": [
+						"sergeq",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"profile",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8000/auth/refresh/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjUzNjYxOCwiaWF0IjoxNjkyNDUwMjE4LCJqdGkiOiJkMWM1YThjMjgyMDg0NmY4OWZmMjNjZGM5MmIyN2M3YyIsInVzZXJfaWQiOjR9.vfRDJ9ng4PV21oY9mflq97PpEihtpc-50PGepXaNHJ0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://sergeq.pythonanywhere.com/auth/refresh/",
+					"protocol": "http",
+					"host": [
+						"sergeq",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"auth",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
